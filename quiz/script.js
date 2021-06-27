@@ -235,16 +235,25 @@ function startTimer(time) {
 }
 
 function startTimerLine(time) {
-  window.screen.width * window.devicePixelRatio < 700
+  window.screen.width < 400
     ? (counterLine = setInterval(timer, 50))
+    : window.screen.width < 430
+    ? (counterLine = setInterval(timer, 40))
     : (counterLine = setInterval(timer, 29));
 
   function timer() {
     time += 1; //upgrading time value with 1
     time_line.style.width = time + "px"; //increasing width of time_line with px by time value
-    if (window.screen.width * window.devicePixelRatio < 700 && time > 310) {
-      clearInterval(smallcounterline);
+    if (window.screen.width < 550 && time > 500) {
+      clearInterval(counterLine);
     }
+
+    // if (window.screen.width  < 400 && time > 400) {
+    //   clearInterval(counterLine);
+    // }
+    // if (window.screen.width  < 350 && time > 350) {
+    //   clearInterval(counterLine);
+    // }
 
     if (time > 549) {
       //if time value is greater than 549
