@@ -17,6 +17,10 @@ body{
     margin: 0;
     color: #1d1118;
 }
+html {
+    overflow-x: hidden;
+    width: 100vw !important;
+  }
 span{
     color: rgb(157, 213, 223);
 }

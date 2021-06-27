@@ -10,6 +10,10 @@
 body{
     background: #007bff;
 }
+html {
+    overflow-x: hidden;
+    width: 100vw !important;
+  }
 
 ::selection{
     color: #fff;

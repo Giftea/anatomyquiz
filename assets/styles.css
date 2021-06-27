@@ -20,6 +20,10 @@ body{
 span{
     color: rgb(157, 213, 223);
 }
+html {
+    overflow-x: hidden;
+    width: 100vw !important;
+  }
 
 .containerr{
     width: 90%;
