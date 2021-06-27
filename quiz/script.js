@@ -12,17 +12,16 @@ const timeCount = document.querySelector(".timer .timer_sec");
 
 // if startQuiz button clicked
 start_btn.onclick = () => {
-    quiz_box.classList.add("activeQuiz"); //show quiz box
-    showQuetions(0); //calling showQestions function
-    queCounter(1); //passing 1 parameter to queCounter
-    startTimer(15); //calling startTimer function
-    startTimerLine(0); //calling startTimerLine function
+  quiz_box.classList.add("activeQuiz"); //show quiz box
+  showQuetions(0); //calling showQestions function
+  queCounter(1); //passing 1 parameter to queCounter
+  startTimer(15); //calling startTimer function
+  startTimerLine(0); //calling startTimerLine function
 };
 
 // if exitQuiz button clicked
 exit_btn.onclick = () => {
   info_box.classList.remove("activeInfo"); //hide info box
-
 };
 
 // if continueQuiz button clicked
@@ -236,10 +235,17 @@ function startTimer(time) {
 }
 
 function startTimerLine(time) {
-  counterLine = setInterval(timer, 29);
+  window.screen.width * window.devicePixelRatio < 700
+    ? (counterLine = setInterval(timer, 50))
+    : (counterLine = setInterval(timer, 29));
+
   function timer() {
     time += 1; //upgrading time value with 1
     time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+    if (window.screen.width * window.devicePixelRatio < 700 && time > 310) {
+      clearInterval(smallcounterline);
+    }
+
     if (time > 549) {
       //if time value is greater than 549
       clearInterval(counterLine); //clear counterLine
