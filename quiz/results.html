@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://use.fontawesome.com/3c0e21225d.js"></script>
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Circle of Willis Quiz</title>
+  </head>
+
+  <body>
+    <div id="result">
+      <div class="squarep"></div>
+      <div class="container">
+        <div id="image">
+          <img src="../Group 28.png" alt="" />
+          <div id="result-text" style="text-align: center; padding-right: 25px">
+            <p></p>
+            <h1 id="pts"></h1>
+          </div>
+        </div>
+        <div class="question">
+          <div class="r flex">
+            <div>
+              <h5 class="result-s" id="time"></h5>
+              <p>Time Spent</p>
+            </div>
+            <div>
+              <h5 class="result-s" id="total"></h5>
+              <p>Total Questions</p>
+            </div>
+          </div>
+          <div class="r color flex">
+            <div>
+              <h5 class="result-s one" id="correct"></h5>
+              <p>Correct answers</p>
+            </div>
+            <div>
+              <h5 class="result-s two" id="wrong"></h5>
+              <p>Wrong answers</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="result-b">
+          <a href="./"
+            ><input type="submit" value="Done" class="button" id="button"
+          /></a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="loader"
+      style="
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+      "
+    >
+      <img
+        src="../assets/images/loader2.png"
+        style="width: 40%; margin-top: 70%; margin-left: 30%"
+        alt=""
+      />
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        let user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+          window.location = "../";
+          $(".loader").show();
+        }
+
+        $(".loader").hide();
+      });
+
+      // get the url parameter
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      let category_id = urlParams.get("category"); //  the category id
+      let all_atempted_category = JSON.parse(
+        localStorage.getItem("atempted_category")
+      ); // gat all attempted category saved in the localstorage
+      let current_category = all_atempted_category.find(
+        (i) => i.id == category_id
+      ); // get the current category from the array returned above
+
+      const total_qst = current_category.questions;
+      const score = current_category.score;
+
+      const expected_scores = total_qst * 10;
+
+      const mM = expected_scores - score;
+
+      const failed = mM / 10;
+      const correct_ans = total_qst - failed;
+
+      const attd_qst = failed + correct_ans;
+
+      const per = (total_qst * attd_qst) / 100;
+
+      document.getElementById(
+        "time"
+      ).innerHTML = `<i class="fa fa-circle"></i> ${current_category.time_spent} sec`;
+      document.getElementById(
+        "total"
+      ).innerHTML = `<i class="fa fa-circle"></i> ${total_qst}`;
+      document.getElementById(
+        "correct"
+      ).innerHTML = `<i class="fa fa-circle"></i> ${correct_ans}`;
+      document.getElementById(
+        "wrong"
+      ).innerHTML = `<i class="fa fa-circle"></i> ${failed}`;
+
+      document.getElementById(
+        "pts"
+      ).innerHTML = ` ${current_category.score}<span id="pts">pts</span>`;
+
+      //    console.log(per);
+      //     console.log(current_category);
+
+      // submit data when done with test
+      function after_qst(current_category) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        $("#error").hide();
+        $.ajax({
+          url: "https://techquiz.io/api/users/meta",
+          method: "PATCH",
+          async: true,
+          timeout: 0,
+          data: {
+            _id: user._id,
+            category: current_category.id,
+            score: current_category.score,
+            timeFinished: current_category.time_spent,
+          },
+          success: function (data) {
+            localStorage.setItem("done", JSON.stringify(data));
+            console.log(data);
+          },
+          error: function (error) {
+            console.log(error);
+            $(".loader").hide();
+            $("#error").html("A network error occured");
+            $("#error").fadeIn();
+          },
+        });
+      }
+
+      after_qst(current_category);
+    </script>
+  </body>
+</html>
