@@ -400,7 +400,7 @@ footer button.show {
 }
 
 @media screen and (max-width: 700px) {
-  .quiz_box,
+  .quiz_box,.info_box,
   .result_box {
     width: 100%;
   }
@@ -428,6 +428,9 @@ footer button.show {
   }
   footer button {
     font-size: 14px;
+  }
+  .quiz_box header .time_line {
+    max-width: 100% !important;
   }
 }
 
