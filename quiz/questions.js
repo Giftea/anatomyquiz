@@ -2,11 +2,13 @@
 let questions = [
   {
     numb: 1,
-    question: "Circle of Willis is located at the Interpeduncular fossa at the base of the brain",
-    answer: "True",
+    question: "What artery supplies the structures of the orbit?",
+    answer: "Ophthalmic",
     options: [
-      "True",
-      "False",
+      "Ophthalmic artery",
+      "Anterior choroidal artery",
+      "Anterior cerebral artery",
+      "Middle cerebral artery",
     ],
   },
   {
@@ -137,7 +139,12 @@ let questions = [
     question:
       "The posterior cerebral arteries supply both the medial and lateral parts of the posterior cerebrum",
     answer: "True",
-    options: ["True", "False"],
+    options: [
+      "True",
+      "Only the medial part",
+      "Only the lateral part",
+      "None of the above",
+    ],
   },
   {
     numb: 16,
@@ -151,7 +158,12 @@ let questions = [
     question:
       "The basilar artery arises from the convergence of the two vertebral arteries",
     answer: "True",
-    options: ["True", "False"],
+    options: [
+      "True",
+      "False, one vertebral and internal carotid arteries",
+      "False, one vertebral and external carotid arteries",
+      "None of the above",
+    ],
   },
   {
     numb: 18,
