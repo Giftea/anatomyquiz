@@ -3,7 +3,7 @@ let questions = [
   {
     numb: 1,
     question: "What artery supplies the structures of the orbit?",
-    answer: "Ophthalmic",
+    answer: "Ophthalmic artery",
     options: [
       "Ophthalmic artery",
       "Anterior choroidal artery",
